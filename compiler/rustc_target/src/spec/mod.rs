@@ -57,6 +57,7 @@ use rustc_macros::HashStable_Generic;
 pub mod abi;
 pub mod crt_objects;
 
+mod aero_base;
 mod aix_base;
 mod android_base;
 mod apple_base;
@@ -1448,6 +1449,8 @@ supported_targets! {
     // FIXME(#106649): Remove x86_64-fuchsia in favor of x86_64-unknown-fuchsia
     ("x86_64-fuchsia", x86_64_fuchsia),
     ("x86_64-unknown-fuchsia", x86_64_unknown_fuchsia),
+
+    ("x86_64-unknown-aero", x86_64_unknown_aero)
 
     ("avr-unknown-gnu-atmega328", avr_unknown_gnu_atmega328),
 

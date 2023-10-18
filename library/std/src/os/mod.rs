@@ -113,6 +113,9 @@ pub mod fortanix_sgx;
 pub mod freebsd;
 #[cfg(target_os = "fuchsia")]
 pub mod fuchsia;
+// FIXME(andypython): since it is a tier 3 target, do we need to mark the module as unstable?
+#[cfg(target_os = "aero")]
+pub mod aero;
 #[cfg(target_os = "haiku")]
 pub mod haiku;
 #[cfg(target_os = "hermit")]

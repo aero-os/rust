@@ -21,5 +21,7 @@ fn main() {
         if has_unwind {
             println!("cargo:rustc-cfg=feature=\"system-llvm-libunwind\"");
         }
+    } else if target.contains("aero") {
+        println!("cargo:rustc-link-lib=gcc_s");
     }
 }

@@ -37,6 +37,8 @@ use crate::os::linux as platform;
 
 #[cfg(not(doc))]
 mod platform {
+    #[cfg(target_os = "aero")]
+    pub use crate::os::aero::*;
     #[cfg(target_os = "aix")]
     pub use crate::os::aix::*;
     #[cfg(target_os = "android")]

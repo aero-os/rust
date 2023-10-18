@@ -73,6 +73,7 @@ impl DoubleEndedIterator for Args {
     target_os = "aix",
     target_os = "nto",
     target_os = "hurd",
+    target_os = "aero"
 ))]
 mod imp {
     use super::Args;

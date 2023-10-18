@@ -949,6 +949,7 @@ impl DirEntry {
         target_os = "aix",
         target_os = "nto",
         target_os = "hurd",
+        target_os = "aero"
     ))]
     pub fn ino(&self) -> u64 {
         self.entry.d_ino as u64

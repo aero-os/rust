@@ -11,6 +11,7 @@ fn main() {
             println!("cargo:rustc-cfg=freebsd13");
         }
     } else if target.contains("linux")
+        || target.contains("aero")
         || target.contains("netbsd")
         || target.contains("dragonfly")
         || target.contains("openbsd")

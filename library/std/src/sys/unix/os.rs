@@ -40,7 +40,7 @@ cfg_if::cfg_if! {
 }
 
 extern "C" {
-    #[cfg(not(any(target_os = "dragonfly", target_os = "vxworks")))]
+    #[cfg(not(any(target_os = "dragonfly", target_os = "vxworks", target_os = "aero")))]
     #[cfg_attr(
         any(
             target_os = "linux",
@@ -79,16 +79,39 @@ extern "C" {
 }
 
 /// Returns the platform-specific value of errno
-#[cfg(not(any(target_os = "dragonfly", target_os = "vxworks")))]
+#[cfg(not(any(target_os = "dragonfly", target_os = "vxworks", target_os = "aero")))]
 pub fn errno() -> i32 {
     unsafe { (*errno_location()) as i32 }
 }
 
 /// Sets the platform-specific value of errno
-#[cfg(all(not(target_os = "dragonfly"), not(target_os = "vxworks")))] // needed for readdir and syscall!
+#[cfg(all(not(target_os = "dragonfly"), not(target_os = "vxworks"), not(target_os = "aero")))] // needed for readdir and syscall!
 #[allow(dead_code)] // but not all target cfgs actually end up using it
 pub fn set_errno(e: i32) {
     unsafe { *errno_location() = e as c_int }
+}
+
+#[cfg(target_os = "aero")]
+pub fn errno() -> i32 {
+    extern "C" {
+        #[thread_local]
+        static __mlibc_errno: c_int;
+    }
+
+    unsafe { __mlibc_errno as i32 }
+}
+
+#[cfg(target_os = "aero")]
+#[allow(dead_code)]
+pub fn set_errno(e: i32) {
+    extern "C" {
+        #[thread_local]
+        static mut __mlibc_errno: c_int;
+    }
+
+    unsafe {
+        __mlibc_errno = e;
+    }
 }
 
 #[cfg(target_os = "vxworks")]
@@ -534,6 +557,11 @@ pub fn current_exe() -> io::Result<PathBuf> {
 
     // Prepend the current working directory to the path if it's not absolute.
     if !path.is_absolute() { getcwd().map(|cwd| cwd.join(path)) } else { Ok(path) }
+}
+
+#[cfg(target_os = "aero")]
+pub fn current_exe() -> io::Result<PathBuf> {
+    unimplemented!()
 }
 
 pub struct Env {
