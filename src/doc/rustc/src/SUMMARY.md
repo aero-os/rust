@@ -29,6 +29,7 @@
     - [\*-android and \*-androideabi](platform-support/android.md)
     - [\*-linux-ohos](platform-support/openharmony.md)
     - [\*-hurd-gnu](platform-support/hurd.md)
+    - [\*-unknown-aero](platform-support/aero.md)
     - [aarch64-unknown-teeos](platform-support/aarch64-unknown-teeos.md)
     - [\*-esp-espidf](platform-support/esp-idf.md)
     - [\*-unknown-fuchsia](platform-support/fuchsia.md)
